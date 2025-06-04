@@ -58,6 +58,8 @@ ApplicationControlBar
 */
 global
 {
+	fontSize: 17;
+	fontFamily:"Microsoft Yahei";
 	/*backgroundGradientAlphas: 1.0, 1.0;
 	backgroundGradientColors: #000000, #000000;*/
 	backgroundDisabledColor: #DDDDDD;
@@ -80,7 +82,10 @@ Alert
 	backgroundColor:#333333;
 	borderColor:#555555;
 	buttonStyleName: Button;
-	paddingBottom: 8;
+	paddingTop:10;
+	paddingBottom:10;
+	paddingLeft:10;
+	paddingRight:10;
 }
 
 
@@ -1005,6 +1010,7 @@ ToggleButtonBar
 ToolTip
 {
 	color: #FFFFFF;
+	fontSize:13;
 	backgroundColor: 0;
 	borderSkin: Embed(source="kingnarestyle.swf", symbol="ToolTip_Border");
 	paddingLeft: 10;

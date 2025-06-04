@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <application xmlns="http://ns.adobe.com/air/application/3.1">
-    <id>com.coursevector.minerva</id>
-    <versionLabel>3.6.0</versionLabel>
-    <versionNumber>3.6.0</versionNumber>
+    <id>com.duskeye.minerva</id>
+    <versionLabel>3.7.0</versionLabel>
+    <versionNumber>3.7.0</versionNumber>
     <filename>minerva</filename>
-    <name>Course Vector .minerva</name>
+    <name>Duskeye minerva</name>
     
     <description>Flash debugging tool. Supports reading/writing AS2 and AS3 Local SharedObject (.sol) files. Can also format JavaScript and similar languages.</description>
     
     <copyright>Copyright (c) 2013 Course Vector</copyright>
 	
 	<initialWindow>
-		<title>.minerva</title>
+		<title>Minerva Sol Editor</title>
 		<content>Minerva.swf</content>
 		<systemChrome>standard</systemChrome>
 		<transparent>false</transparent>
@@ -30,8 +30,8 @@
 	
 	<customUpdateUI>false</customUpdateUI>
 	<allowBrowserInvocation>false</allowBrowserInvocation>
-	<installFolder>Course Vector</installFolder>
-	<programMenuFolder>Course Vector</programMenuFolder>
+	<installFolder>DuskeyeMinerva</installFolder>
+	<programMenuFolder>DuskeyeMinerva</programMenuFolder>
 	
 	<fileTypes>
 		  <fileType>

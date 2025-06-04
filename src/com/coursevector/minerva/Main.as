@@ -1,10 +1,8 @@
-﻿import air.update.ApplicationUpdaterUI;
-import air.update.events.UpdateEvent;
-
-import com.coursevector.data.JSFormatter;
+﻿import com.coursevector.data.JSFormatter;
 import com.coursevector.formats.AMF;
 import com.coursevector.formats.SOL;
 import com.coursevector.minerva.AboutWindow;
+import com.coursevector.minerva.AddVar;
 import com.coursevector.minerva.AlphaNumericSort;
 import com.google.analytics.AnalyticsTracker;
 import com.google.analytics.GATracker;
@@ -33,11 +31,11 @@ import flash.utils.getDefinitionByName;
 import flash.utils.setTimeout;
 import flash.xml.XMLDocument;
 
-import mx.collections.*;
+import mx.collections.ArrayCollection;
 import mx.controls.Alert;
 import mx.controls.TextInput;
 import mx.controls.Tree;
-import mx.controls.listClasses.*;
+import mx.controls.listClasses.IListItemRenderer;
 import mx.controls.treeClasses.TreeItemRenderer;
 import mx.controls.treeClasses.TreeListData;
 import mx.core.IUITextField;
@@ -48,8 +46,14 @@ import mx.events.CollectionEventKind;
 import mx.events.ItemClickEvent;
 import mx.events.ListEvent;
 import mx.events.ToolTipEvent;
+import mx.managers.PopUpManager;
 import mx.managers.SystemManager;
 import mx.utils.ArrayUtil;
+import mx.utils.Base64Encoder;
+import mx.utils.Base64Decoder;
+
+import air.update.ApplicationUpdaterUI;
+import air.update.events.UpdateEvent;
 
 [Embed("assets/icons/array.png")]
 private var arrayIcon:Class;
@@ -167,11 +171,11 @@ use namespace mx_internal;
 // Event handler to initialize the MenuBar control.
 private function init():void {
 	// Init Updater			
-	appUpdater.updateURL = "http://www.coursevector.com/projects/minerva/update.xml"; // Server-side XML file describing update
-	appUpdater.isCheckForUpdateVisible = false; // We won't ask permission to check for an update
-	appUpdater.addEventListener(UpdateEvent.INITIALIZED, onUpdate); // Once initialized, run onUpdate
-	appUpdater.addEventListener(ErrorEvent.ERROR, errorHandler); // If something goes wrong, run onError
-	appUpdater.initialize(); // Initialize the update framework
+	// appUpdater.updateURL = "http://www.coursevector.com/projects/minerva/update.xml"; // Server-side XML file describing update
+	// appUpdater.isCheckForUpdateVisible = false; // We won't ask permission to check for an update
+	// appUpdater.addEventListener(UpdateEvent.INITIALIZED, onUpdate); // Once initialized, run onUpdate
+	// appUpdater.addEventListener(ErrorEvent.ERROR, errorHandler); // If something goes wrong, run onError
+	// appUpdater.initialize(); // Initialize the update framework
 	
 	// Load prefs
 	var so:SharedObject = SharedObject.getLocal("settings");
@@ -204,8 +208,8 @@ private function init():void {
 
 private function initTracker():void {
 	// Analytics
-	var tracker:AnalyticsTracker = new GATracker(this.stage, "UA-349755-1", "AS3", false);
-	tracker.trackPageview("/tracking/projects/minerva");
+	// var tracker:AnalyticsTracker = new GATracker(this.stage, "UA-349755-1", "AS3", false);
+	// tracker.trackPageview("/tracking/projects/minerva");
 }
 
 private function invokeHandler(e:InvokeEvent):void {
@@ -228,7 +232,7 @@ private function invokeHandler(e:InvokeEvent):void {
 }
 
 private function onClickTab(e:ItemClickEvent):void {
-	if(e.label == "AMF Inspector") {
+	if(e.index == 0) {
 		vsNav.selectedIndex = 0;
 		isEditor = true;
 		showOpen = isEditor && !hasFile;
@@ -255,7 +259,7 @@ private function fileClose():void {
 	showOpen = isEditor && !hasFile;
 	showSave = isEditor && hasFile;
 	isSOL = false;
-	this.title = ".minerva";
+	this.title = "Minerva Sol Editor";
 }
 
 private function dragHandler(e:NativeDragEvent):void {
@@ -266,7 +270,7 @@ private function dragHandler(e:NativeDragEvent):void {
 				NativeDragManager.dropAction = NativeDragActions.LINK;
 				NativeDragManager.acceptDragDrop(this);
 			} else {
-				 Alert.show('Unrecognized file format', 'Alert', Alert.OK);
+				 Alert.show('未知的文件类型', '错误', Alert.OK);
 			}
 			break;
 		case NativeDragEvent.NATIVE_DRAG_DROP :
@@ -310,7 +314,7 @@ private function updateConfig():void {
     try {
 		so.flush(10000);
     } catch (e:Error) {
-		Alert.show("Error...Could not write SharedObject to disk\n");
+		Alert.show("写入文件失败\n");
     }
 }
 
@@ -343,11 +347,28 @@ private function onClickRefresh():void {
 }
 
 private function onClickInsert():void {
-	_uid++;
-	var o:Object = {name:'New Item ' + _uid, value:'', type:'String', id:_uid};
-	
 	var parent:Object = dataTree.selectedItem;
-	if (parent == null) return;
+	if (parent == null)
+	{
+		Alert.show("请先选择父节点","错误",Alert.OK);
+		return;
+	}
+	var win:AddVar = new AddVar();
+	win.callBack = insertCallBack;
+	win.setCurrentId(_uid + 1);
+	PopUpManager.addPopUp(win,this,true);
+	PopUpManager.centerPopUp(win);
+}
+
+/**
+ * 添加变量回调
+ * param [name,type]
+ */
+private function insertCallBack(param:Array):void{
+	var parent:Object = dataTree.selectedItem;
+	var o:Object = {name:param[0], type:arrDataTypes[param[1]], value:null, id:++_uid};
+	// if(o.type == "Object" || o.type == "Array") o.traits = {count:0, menbers:[]};
+	
 	if (!dataTree.dataDescriptor.isBranch(parent)) parent = dataTree.getParentItem(parent);
 	//if (!parent.children) parent = dataTree.getParentItem(parent);
 	
@@ -362,54 +383,23 @@ private function onClickInsert():void {
 		// Increase member count
 		parent.traits.count++;
 	}
-	//dataTree.selectedItem = parent;
-	
-	/*dataTree.invalidateDisplayList();
-	dataTree.invalidateProperties();
-	dataTree.invalidateLayering();
-	dataTree.invalidateLayoutDirection();
-	dataTree.invalidateList();
-	dataTree.invalidateSize();
-	
-	dataTree.validateDisplayList();
-	dataTree.validateNow();
-	dataTree.validateProperties();
-	dataTree.validateSize(true);*/
 	
 	_dataProvider.refresh();
 	dataTree.invalidateList();
-	//_dataProvider.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.ADD, -1, -1, [o]));
-	
+
+	//dataTree.selectedItem = parent;	
+	//如果选中的节点没有打开，会导致报错
 	dataTree.selectedItem = o;
-	//vsType.selectedChild = StringType;
-	
-	/*
-	//var parent:Object = dataTree.getParentItem(node);
-	//var parentRenderer:IListItemRenderer = dataTree.itemToItemRenderer(parent);
-	// If parent node is not in view, it can't be found
-	//if (parentRenderer == null) return;
-	
-	var p:int = 0;//dataTree.itemRendererToIndex(parentRenderer);
-	var i:int = dataTree.itemRendererToIndex(dataTree.itemToItemRenderer(parent));
-	dataTree.dataDescriptor.addChildAt(parent, o, i - p - 1);
-	vsType.selectedChild = StringType;
-	
-	if (parent.traits && parent.traits.count) {
-		// Add member to members array
-		parent.traits.members.push(o);
-		
-		// Increase member count
-		parent.traits.count++;
-	}
-	
-	if (parent.type == "Array") {
-		parent.children.push(o);
-	}*/
+	if(dataTree.selectedItem) dataTree.dispatchEvent(new ListEvent(Event.CHANGE));
 }
 
 private function onClickRemove():void {
 	var node:Object = dataTree.selectedItem;
-	if (node == null) return;
+	if (node == null)
+	{
+		Alert.show("请先选择节点","错误",Alert.OK);
+		return;
+	}
 	
 	var parent:Object = dataTree.getParentItem(node);
 	var parentRenderer:IListItemRenderer = dataTree.itemToItemRenderer(parent);
@@ -434,7 +424,7 @@ private function onClickRemove():void {
 		parent.traits.count--;
 	}
 	
-	if (parent.type == "Array") {
+	if (parent.type == "Array" || parent.type == "Object") {
 		for (i = 0; i < parent.children; i++) {
 			if (parent.children[i].id == node.id) {
 				parent.children.splice(i,1);
@@ -462,11 +452,11 @@ private function fileOpen():void {
 	}
 	
 	fileRead.addEventListener(Event.SELECT, openHandler, false, 0, true);
-	fileRead.browse(fileFilters);
+	fileRead.browseForOpen("打开文件",fileFilters);
 }
 
 private function errorHandler(e:ErrorEvent):void {
-	Alert.show(e.text, 'Error', Alert.OK);
+	Alert.show(e.text, '错误', Alert.OK);
 }
 
 private function openHandler(e:Event = null):void {
@@ -495,7 +485,7 @@ private function openHandler(e:Event = null):void {
 			try {
 				amfReader.deserialize(ba, systemManager);
 			} catch (err:Error) {
-				Alert.show(err.message, 'Error Opening', Alert.OK);
+				Alert.show(err.message, '错误', Alert.OK);
 			}
 		}
 	} else {
@@ -508,13 +498,13 @@ private function openHandler(e:Event = null):void {
 			try {
 				solReader.deserialize(ba, systemManager);
 			} catch (err:Error) {
-				Alert.show(err.message, 'Error Opening', Alert.OK);
+				Alert.show(err.message, '错误', Alert.OK);
 			}
 		}
 	}
 	
 	// Display opening message
-	updateTreedataProvider(new ArrayCollection([{name:'Opening...'}]));
+	updateTreedataProvider(new ArrayCollection([{name:'读取中...'}]));
 	
 	showInspector = false;
 	hasFile = true;
@@ -522,7 +512,7 @@ private function openHandler(e:Event = null):void {
 	showSave = isEditor && hasFile;
 	vsType.selectedChild = EmptyType;
 	
-	this.title = ".minerva - " + fileRead.name;
+	this.title = "Minerva - " + fileRead.name;
 }
 
 private function openCompleteHandler(e:Event):void {
@@ -894,7 +884,7 @@ private function toObject(arr:Array, o:*):* {
 }
 
 private function fileSaveAs():void {
-	fileWrite.browseForSave("Save As");
+	fileWrite.browseForSave("另存为");
 }
 
 private function fileSaveAsJSON():void {
@@ -902,7 +892,7 @@ private function fileSaveAsJSON():void {
 	if(fileExport.extension == null || fileExport.extension.toLowerCase() != "json") {
 		fileExport.url += ".json";
 	}
-	fileExport.browseForSave('Save As');
+	fileExport.browseForSave('另存为JSON');
 }
 private var solWriter:SOL;
 private var amfWriter:AMF;
@@ -918,13 +908,13 @@ private function fileSave():void {
 		try {
 			if(a[0].hasOwnProperty("children")) o = toObject(a[0].children, o);
 		} catch (e:Error) {
-			Alert.show(e.message, 'Error Saving', Alert.OK);
+			Alert.show(e.message, '错误', Alert.OK);
 			return;
 		}
 	}
 	
 	// Display opening message
-	updateTreedataProvider(new ArrayCollection([{name:'Saving...'}]));
+	updateTreedataProvider(new ArrayCollection([{name:'保存中...'}]));
 	
 	if(isSOL) {
 		solWriter = new SOL();
@@ -935,7 +925,7 @@ private function fileSave():void {
 			try {
 				solWriter.serialize(systemManager, fileName, o, nVersion);
 			} catch (e:Error) {
-				Alert.show(e.message, 'Error Saving', Alert.OK);
+				Alert.show(e.message, '错误', Alert.OK);
 				return;
 			}
 		}
@@ -948,7 +938,7 @@ private function fileSave():void {
 			try {
 				amfWriter.serialize(systemManager, o, nVersion);
 			} catch (e:Error) {
-				Alert.show(e.message, 'Error Saving', Alert.OK);
+				Alert.show(e.message, '错误', Alert.OK);
 				return;
 			}
 		}
@@ -972,7 +962,7 @@ private function saveCompleteHandler(e:Event):void {
 	amfWriter = null;
 	
 	// Clear message
-	updateTreedataProvider(new ArrayCollection([{name:'Saved!'}]));
+	updateTreedataProvider(new ArrayCollection([{name:'保存成功'}]));
 	
 	// Open the new file
 	if(fileRead.hasEventListener(Event.SELECT)) fileRead.removeEventListener(Event.SELECT, openHandler);
@@ -1013,7 +1003,7 @@ private function saveJSONHandler(e:Event = null):void {
 		try {
 			if(a[0].hasOwnProperty("children")) o = toObject(a[0].children, o);
 		} catch (err:Error) {
-			Alert.show(err.message, 'Error Saving', Alert.OK);
+			Alert.show(err.message, '错误', Alert.OK);
 			return;
 		}
 	}
@@ -1024,9 +1014,9 @@ private function saveJSONHandler(e:Event = null):void {
 	stream.writeUTFBytes(strJSON);
 	stream.close();
 	
-	Alert.show('File exported successfully', 'File Exported', Alert.OK);
+	Alert.show('文件导出成功', '提示', Alert.OK);
 	} catch(e:Error) {
-		Alert.show('File failed to export', 'Export Error', Alert.OK);
+		Alert.show('文件导出失败', '错误', Alert.OK);
 		
 	}
 }
@@ -1114,9 +1104,19 @@ private function byteArray2String(ba:ByteArray):String {
 	return str;
 }
 
+/**
+ * 压缩ByteArray
+ * @param e 
+ * @param str 
+ */
 private function inflateByteArray(e:Event, str:String):void {
 	var ba:ByteArray = string2ByteArray(str);
-	ba.inflate();
+	try{
+		ba.inflate();
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
 	
 	byteValueInput.text = byteArray2String(ba);
 	dataTree.selectedItem.value = byteValueInput.text;
@@ -1124,14 +1124,107 @@ private function inflateByteArray(e:Event, str:String):void {
 	displayByteArray(ba);
 }
 
+/**
+ * 解压ByteArray
+ * @param e 
+ * @param str 
+ */
 private function deflateByteArray(e:Event, str:String):void {
 	var ba:ByteArray = string2ByteArray(str);
-	ba.deflate();
+	try{
+		ba.deflate();
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
 	
 	byteValueInput.text = byteArray2String(ba);
 	dataTree.selectedItem.value = byteValueInput.text;
 	
 	displayByteArray(ba);
+}
+
+/**
+ * 压缩ByteArray
+ * @param e 
+ * @param str 
+ */
+private function compressByteArray(e:Event, str:String):void {
+	var ba:ByteArray = string2ByteArray(str);
+	try{
+		ba.compress();
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
+	
+	byteValueInput.text = byteArray2String(ba);
+	dataTree.selectedItem.value = byteValueInput.text;
+	
+	displayByteArray(ba);
+}
+
+/**
+ * 解压ByteArray
+ * @param e 
+ * @param str 
+ */
+private function uncompressByteArray(e:Event, str:String):void {
+	var ba:ByteArray = string2ByteArray(str);
+	try{
+		ba.uncompress();
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
+	
+	byteValueInput.text = byteArray2String(ba);
+	dataTree.selectedItem.value = byteValueInput.text;
+	
+	displayByteArray(ba);
+}
+
+private function base64Encode(e:Event, str:String):void { 
+	var encoder:Base64Encoder = new Base64Encoder();
+	encoder.insertNewLines = false;
+	try{
+		encoder.encodeUTFBytes(str);
+		stringValueInput.text = encoder.toString();
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
+}
+
+private function base64Decode(e:Event, str:String):void { 
+	var decoder:Base64Decoder = new Base64Decoder();
+	try{
+		decoder.decode(str);
+		var ba:ByteArray = decoder.toByteArray();
+		ba.position = 0;
+		stringValueInput.text = ba.readUTFBytes(ba.bytesAvailable);
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
+}
+
+private function uriEncode(e:Event, str:String):void {
+	try{
+		stringValueInput.text = encodeURIComponent(str);
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
+}
+
+private function uriDecode(e:Event, str:String):void {
+	try{
+		stringValueInput.text = decodeURIComponent(str);
+	}catch(e:Error) {
+		Alert.show(e.message, '错误', Alert.OK);
+		return;
+	}
 }
 
 private function displayByteArray(ba:ByteArray):void {
@@ -1238,7 +1331,7 @@ private function treeIcon(item:Object):Class {
 }
 
 private function treeLabel(item:Object):String {
-	var strName:String = item.name || "No File Opened";
+	var strName:String = item.name || "无打开文件";
 	return strName;
 }
 
@@ -1358,6 +1451,7 @@ private function treeChanged(e:Event = null):void {
 				//ddStringType.selectedIndex = ArrayUtil.getItemIndex(selectedNode.type, arrDataTypes);
 				break;
 			case "Date":
+				if(selectedNode.value === null) selectedNode.value = new Date();
 				var tempDate:Date = selectedNode.value as Date;
 				dateDF.selectedDate = tempDate;
 				//dateTS.timeValue = tempDate;
@@ -1376,7 +1470,9 @@ private function treeChanged(e:Event = null):void {
 				ddEmptyType.selectedIndex = ArrayUtil.getItemIndex(selectedNode.type, arrDataTypes);
 				break;
 			case "Array":
+				if(selectedNode.value === null) selectedNode.value = [];
 			case "Object":
+				if(selectedNode.value === null) selectedNode.value = {};
 			default:
 				vsType.selectedChild = ObjectType;
 				//ddObjectType.selectedIndex = ArrayUtil.getItemIndex(selectedNode.type, arrDataTypes);

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	width="300" 
-	paddingBottom="0" paddingTop="0" paddingLeft="0" paddingRight="0" 
-	creationComplete="reset()" title="Add Variable">
+	width="40%" 
+	height="30%" 
+	paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10" 
+	creationComplete="reset()" title="新增变量">
 	
 	<mx:Script>
 		<![CDATA[
+			import mx.managers.PopUpManager;
+			
+			public var callBack:Function;
+			private var _id:int;
+			
 			[Bindable]
 			private var arrDataTypes:Array = [
 				'Array', 'Boolean', 'ByteArray', 'Date', 
@@ -14,21 +20,37 @@
 				'String', 'Undefined', 'XML', 'XMLDocument'
 			];
 			
+			override protected function startDragging(event:MouseEvent):void {
+				// 空实现，阻止拖动
+			}
+			
 			public function reset():void {
-				txtName.text = "";
+				txtName.text = "item " + _id;
 				txtName.errorString = "";
-				ddType.selectedIndex = 7;
+				ddType.selectedIndex = 8;
 			}
 			
 			public function setData(value:Array):void {
 				reset();
-				
-				txtName.text = arr[0];
-				ddType.selectedIndex = arr[1];
+				txtName.text = value[0];
+				ddType.selectedIndex = value[1];
 			}
 			
 			public function getData():Array {
 				return [txtName.text, ddType.selectedIndex];
+			}
+
+			public function setCurrentId(id:int):void {
+				_id = id;
+			}
+			
+			public function confirmClick(evt:Event):void {
+				PopUpManager.removePopUp(this);
+				if(callBack) callBack(getData());
+			}
+			
+			public function cancelClick(evt:Event):void {
+				PopUpManager.removePopUp(this);
 			}
 		]]>
 	</mx:Script>
@@ -36,20 +58,20 @@
 	<mx:StringValidator required="true" source="{txtName}" property="text" minLength="2" />
 	
 	<mx:Form>
-		<mx:FormItem label="Name" width="100%" required="true">
+		<mx:FormItem label="变量名称" width="100%" required="true">
 			<mx:toolTip>Name of the new variable.</mx:toolTip>
 			<mx:TextInput id="txtName" maxChars="255" width="100%" />
 		</mx:FormItem>
 		
-		<mx:FormItem label="Data Type" width="100%" required="true">
+		<mx:FormItem label="数据类型" width="100%" required="true">
 			<mx:toolTip>The data type of the new variable.</mx:toolTip>
 			<mx:ComboBox dataProvider="{arrDataTypes}" selectedIndex="7" id="ddType"></mx:ComboBox>
 		</mx:FormItem>
 	</mx:Form>
 	
 	<mx:HBox width="100%" horizontalAlign="center" height="30">
-		<mx:Button label="Ok"/>
-		<mx:Button label="Cancel"/>
+		<mx:Button label=" 确认 " click="confirmClick(event)"/>
+		<mx:Button label=" 取消 " click="cancelClick(event)"/>
 	</mx:HBox>
 	
 </mx:TitleWindow>
