@@ -5,6 +5,8 @@
 
     <fx:Script>
         <![CDATA[
+        import com.coursevector.minerva.LocaleManager;
+
         import mx.core.FlexGlobals;
         import mx.managers.PopUpManager;
 
@@ -46,10 +48,10 @@
     <s:VGroup width="100%" paddingBottom="15" paddingLeft="15" paddingRight="15" paddingTop="15" gap="10" horizontalAlign="center" verticalAlign="middle">
         <s:Label text="{alertText}" width="100%" textAlign="center" height="80%"/>
         <s:HGroup width="100%" horizontalAlign="center" gap="10" height="20%">
-            <s:Button id="btnOk" label="{langPack.AlertBox.Ok}" click="handleClick(OK)" includeInLayout="{Boolean(buttons &amp; OK)}"/>
-            <s:Button id="btnCancel" label="{langPack.AlertBox.Cancel}" click="handleClick(CANCEL)" includeInLayout="{Boolean(buttons &amp; CANCEL)}"/>
-            <s:Button id="btnYes" label="{langPack.AlertBox.Yes}" click="handleClick(YES)" includeInLayout="{Boolean(buttons &amp; YES)}"/>
-            <s:Button id="btnNo" label="{langPack.AlertBox.No}" click="handleClick(NO)" includeInLayout="{Boolean(buttons &amp; NO)}"/>
+            <s:Button id="btnOk" label="{LocaleManager.getIns().getLangString('AlertBox.Ok')}" click="handleClick(OK)" includeInLayout="{Boolean(buttons &amp; OK)}"/>
+            <s:Button id="btnCancel" label="{LocaleManager.getIns().getLangString('AlertBox.Cancel')}" click="handleClick(CANCEL)" includeInLayout="{Boolean(buttons &amp; CANCEL)}"/>
+            <s:Button id="btnYes" label="{LocaleManager.getIns().getLangString('AlertBox.Yes')}" click="handleClick(YES)" includeInLayout="{Boolean(buttons &amp; YES)}"/>
+            <s:Button id="btnNo" label="{LocaleManager.getIns().getLangString('AlertBox.No')}" click="handleClick(NO)" includeInLayout="{Boolean(buttons &amp; NO)}"/>
         </s:HGroup>
     </s:VGroup>
 </s:TitleWindow>

@@ -2,8 +2,9 @@
 import com.coursevector.flex.AlertBox;
 import com.coursevector.formats.AMF;
 import com.coursevector.formats.SOL;
-import com.coursevector.minerva.AboutWindow;
+import com.coursevector.minerva.AboutPanel;
 import com.coursevector.minerva.AddVar;
+import com.dusk.net.NativeFile;
 import com.hurlant.util.Base64;
 
 import flash.desktop.Clipboard;
@@ -61,15 +62,6 @@ private var dateIcon:Class;
 [Embed("/assets/icons/int.png")]
 private var intIcon:Class;
 
-[Embed("/assets/icons/lostreference.png")]
-private var lostreferenceIcon:Class;
-
-[Embed("/assets/icons/mixed.png")]
-private var mixedIcon:Class;
-
-[Embed("/assets/icons/none.png")]
-private var noneIcon:Class;
-
 [Bindable]
 [Embed("/assets/icons/null.png")]
 private var nullIcon:Class;
@@ -79,9 +71,6 @@ private var numberIcon:Class;
 
 [Embed("/assets/icons/object.png")]
 private var objectIcon:Class;
-
-[Embed("/assets/icons/ref.png")]
-private var refIcon:Class;
 
 [Embed("/assets/icons/string.png")]
 private var stringIcon:Class;
@@ -115,7 +104,7 @@ private var arrDataTypes:Array = [
 ];
 // Minerva
 //private var appUpdater:ApplicationUpdaterUI = new ApplicationUpdaterUI();
-private var aboutWin:AboutWindow;
+private var aboutWin:AboutPanel;
 
 [Bindable]
 private var isEditor:Boolean = true;
@@ -236,7 +225,7 @@ private function onChangePage(evt:IndexChangeEvent):void {
 }
 
 private function onClickAbout():void {
-	aboutWin = new AboutWindow();
+	aboutWin = new AboutPanel();
 	//var panel:SettingPanel = new SettingPanel;
 	PopUpManager.addPopUp(aboutWin, this, true);
 }
@@ -261,7 +250,7 @@ private function dragHandler(e:NativeDragEvent):void {
 				NativeDragManager.dropAction = NativeDragActions.LINK;
 				NativeDragManager.acceptDragDrop(this);
 			} else {
-				AlertBox.show(langPack.Error.UnknowFileType);
+				AlertBox.show(LocaleManager.getIns().getLangString("Error.UnknowFileType"));
 			}
 			break;
 		case NativeDragEvent.NATIVE_DRAG_DROP :
@@ -302,7 +291,7 @@ private function updateConfig():void {
 	//so.data.keep_array_indentation = cbKeepIndentation.selected;
 
 	var result:String = so.flush();
-	if (result != SharedObjectFlushStatus.FLUSHED) AlertBox.show(langPack.Error.ErrorSavingSetting);
+	if (result != SharedObjectFlushStatus.FLUSHED) AlertBox.show(LocaleManager.getIns().getLangString("Error.ErrorSavingSetting"));
 }
 
 ////////////////
@@ -336,7 +325,7 @@ private function onClickRefresh():void {
 private function onClickInsert():void {
 	var parent:Object = dataTree.selectedItem;
 	if (parent == null) {
-		AlertBox.show(langPack.Error.ParentNodeNeed);
+		AlertBox.show(LocaleManager.getIns().getLangString("Error.ParentNodeNeed"));
 		return;
 	}
 	var win:AddVar = new AddVar();
@@ -418,7 +407,7 @@ private function insertCallBack(param:Array):void {
 private function onClickRemove():void {
 	var node:Object = dataTree.selectedItem;
 	if (node == null) {
-		AlertBox.show(langPack.Error.NodeSelectionNeed);
+		AlertBox.show(LocaleManager.getIns().getLangString("Error.NodeSelectionNeed"));
 		return;
 	}
 
@@ -473,7 +462,7 @@ private function fileOpen():void {
 	}
 
 	fileRead.addEventListener(Event.SELECT, openHandler, false, 0, true);
-	fileRead.browseForOpen(langPack.FileOperate.Open, fileFilters);
+	fileRead.browseForOpen(LocaleManager.getIns().getLangString("FileOperate.Open"), fileFilters);
 }
 
 private function errorHandler(e:ErrorEvent):void {
@@ -525,7 +514,7 @@ private function openHandler(e:Event = null):void {
 	}
 
 	// Display opening message
-	updateTreedataProvider(new ArrayCollection([{name: langPack.Waiting.Loading}]));
+	updateTreedataProvider(new ArrayCollection([{name: LocaleManager.getIns().getLangString("Waiting.Loading")}]));
 
 	showInspector = false;
 	hasFile = true;
@@ -824,7 +813,7 @@ private function toObject(arr:Array, o:*):* {
 }
 
 private function fileSaveAs():void {
-	fileWrite.browseForSave(langPack.FileOperate.Open);
+	fileWrite.browseForSave(LocaleManager.getIns().getLangString("FileOperate.Open"));
 }
 
 private function fileSaveAsJSON():void {
@@ -832,7 +821,7 @@ private function fileSaveAsJSON():void {
 	if (fileExport.extension == null || fileExport.extension.toLowerCase() != "json") {
 		fileExport.url += ".json";
 	}
-	fileExport.browseForSave(langPack.FileOperate.ExportJSON);
+	fileExport.browseForSave(LocaleManager.getIns().getLangString("FileOperate.ExportJSON"));
 }
 
 private var solWriter:SOL;
@@ -855,7 +844,7 @@ private function fileSave():void {
 	}
 
 	// Display opening message
-	updateTreedataProvider(new ArrayCollection([{name: langPack.Waiting.Saving}]));
+	updateTreedataProvider(new ArrayCollection([{name: LocaleManager.getIns().getLangString("Waiting.Saving")}]));
 
 	if (isSOL) {
 		solWriter = new SOL();
@@ -901,7 +890,7 @@ private function saveCompleteHandler(e:Event):void {
 	amfWriter = null;
 
 	// Clear message
-	updateTreedataProvider(new ArrayCollection([{name: langPack.Alert.FileSaveSuccess}]));
+	updateTreedataProvider(new ArrayCollection([{name: LocaleManager.getIns().getLangString("Alert.FileSaveSuccess")}]));
 
 	// Open the new file
 	if (fileRead.hasEventListener(Event.SELECT)) fileRead.removeEventListener(Event.SELECT, openHandler);
@@ -952,9 +941,9 @@ private function saveJSONHandler(e:Event = null):void {
 		stream.open(fileExport, FileMode.WRITE);
 		stream.writeUTFBytes(strJSON);
 		stream.close();
-		AlertBox.show(langPack.Alert.FileExportSuccess);
+		AlertBox.show(LocaleManager.getIns().getLangString("Alert.FileExportSuccess"));
 	} catch (e:Error) {
-		AlertBox.show(langPack.Error.FileExportFail);
+		AlertBox.show(LocaleManager.getIns().getLangString("Error.FileExportFail"));
 
 	}
 }
@@ -1042,7 +1031,7 @@ private function compressByteArray(e:Event):void {
 					hasLZMA = false;
 				}
 				if (!hasLZMA) {
-					AlertBox.show(langPack.Error.LZMANotSupport);
+					AlertBox.show(LocaleManager.getIns().getLangString("Error.LZMANotSupport"));
 					return;
 				}
 				ba.compress(CompressionAlgorithm["LZMA"]);
@@ -1078,7 +1067,7 @@ private function uncompressByteArray(e:Event):void {
 					hasLZMA = false;
 				}
 				if (!hasLZMA) {
-					AlertBox.show(langPack.Error.LZMANotSupport);
+					AlertBox.show(LocaleManager.getIns().getLangString("Error.LZMANotSupport"));
 					return;
 				}
 				ba.uncompress(CompressionAlgorithm["LZMA"]);
@@ -1089,6 +1078,27 @@ private function uncompressByteArray(e:Event):void {
 		return;
 	}
 	displayByteArray();
+}
+
+private function importExternalByteArray():void {
+	if (!dataTree.selectedItem) {
+		AlertBox.show(LocaleManager.getIns().getLangString("Error.NodeSelectionNeed"));
+		return;
+	}
+	NativeFile.browseForFile(function (data:*):void {
+		if (data is String) {
+			var ba:ByteArray = new ByteArray();
+			ba.readBytes(data);
+			dataTree.selectedItem.value = ba;
+		} else if (data is ByteArray) {
+			dataTree.selectedItem.value = data;
+		}else{
+			AlertBox.show(LocaleManager.getIns().getLangString("TypeForm.ByteArray.ImportError"));
+			return;
+		}
+		displayByteArray();
+		AlertBox.show(LocaleManager.getIns().getLangString("TypeForm.ByteArray.ImportSuccess"));
+	}, null, null, LocaleManager.getIns().getLangString("TypeForm.ByteArray.Import"));
 }
 
 private function base64Encode(e:Event, str:String):void {
@@ -1208,7 +1218,7 @@ private function compile2bin(confirmFlag:uint):void {
 		default:
 			break;
 	}
-	AlertBox.show(langPack.TypeForm.ByteArray.CompileFinish, '', AlertBox.OK)
+	AlertBox.show(LocaleManager.getIns().getLangString("TypeForm.ByteArray.CompileFinish"), '', AlertBox.OK)
 }
 
 private function string2ByteArray(str:String):ByteArray {
@@ -1249,8 +1259,6 @@ private function treeIcon(item:Object):Class {
 			iconClass = bytearrayIcon;
 			break;
 		case "XMLDocument":
-			iconClass = xmlIcon;
-			break;
 		case "XML":
 			iconClass = xmlIcon;
 			break;
@@ -1287,7 +1295,7 @@ private function treeIcon(item:Object):Class {
 }
 
 private function treeLabel(item:Object):String {
-	var strName:String = item.name || langPack.Error.NoOpenedFile;
+	var strName:String = item.name || LocaleManager.getIns().getLangString("Error.NoOpenedFile");
 	return strName;
 }
 
@@ -1308,6 +1316,11 @@ private function treeValueChanged(e:Event, type:String = "invalid", value:* = nu
 
 		// update icon
 		if (isNewType) {
+			//validate Object and Array data
+			if (type == "Object" || type == "Array") {
+				dataTree.selectedItem.children = [];
+				dataTree.selectedItem.traits = {count: 0, members: [], type: type};
+			}
 			dataTree.iconField = "icon";
 			treeChanged();
 		}
@@ -1427,7 +1440,7 @@ private function treeChanged(e:Event = null):void {
 			case "Null":
 			case "Undefined":
 				vsType.selectedChild = EmptyType;
-				ddEmptyType.selectedIndex = ArrayUtil.getItemIndex(selectedNode.type, arrDataTypes);
+//				ddEmptyType.selectedIndex = ArrayUtil.getItemIndex(selectedNode.type, arrDataTypes);
 				break;
 			case "Array":
 				vsType.selectedChild = ArrayType;
@@ -1437,7 +1450,6 @@ private function treeChanged(e:Event = null):void {
 				break;
 			default:
 				vsType.selectedChild = InfoType;
-				//ddObjectType.selectedIndex = ArrayUtil.getItemIndex(selectedNode.type, arrDataTypes);
 				break;
 		}
 	}

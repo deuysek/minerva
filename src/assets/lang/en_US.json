@@ -12,6 +12,24 @@
 		"Close": "Close",
 		"ExportJSON": "Export JSON"
 	},
+	"CompressMethod": {
+		"Title": "Compression Method",
+		"Zlib": "Zlib",
+		"Deflate": "Deflate",
+		"LZMA": "LZMA",
+		"Compress": "Compress",
+		"Uncompress": "Uncompress"
+	},
+	"BytesDisplay": {
+		"Title": "Display Mode",
+		"StringUtf8": "UTF-8 String",
+		"StringUtf16": "UTF-16 String",
+		"StringGB2312": "GB2312 String",
+		"Base64String": "Base64 String",
+		"BitmapData": "Image Mode",
+		"RawHex": "Hexadecimal",
+		"Object": "Flash Object"
+	},
 	"EditorOperate": {
 		"Refresh": "Refresh",
 		"RefreshDes": "Reload file",
@@ -24,22 +42,65 @@
 		"SortTypeDes": "By Type (Descending)"
 	},
 	"TypeForm": {
+		"Info": {
+			"Name": "AMF Data Packet"
+		},
 		"Empty": {
 			"Name": "Data Type"
 		},
+		"Object":{
+			"Name": "Object",
+			"Hint": "Select child item to edit",
+			"PrevTitleIndex": "Name",
+			"PrevTitleType": "Type",
+			"PrevTitleValue": "Value"
+		},
+		"Array":{
+			"Name": "Array",
+			"Hint": "Select child item to edit",
+			"PrevTitleIndex": "Index",
+			"PrevTitleType": "Type",
+			"PrevTitleValue": "Value"
+		},
 		"Number": {
+			"Name": "Number",
 			"Hint": "Supports scientific notation, e.g.: 1e4 = 10000"
 		},
+		"Boolean": {
+			"Name": "Boolean"
+		},
 		"String": {
-			"Base64Encode": "b64 Encode",
-			"Base64Decode": "b64 Decode",
+			"Name": "String",
+			"Base64Encode": "Base64 Encode",
+			"Base64Decode": "Base64 Decode",
 			"UriEncode": "URI Encode",
 			"UriDecode": "URI Decode"
 		},
+		"ByteArray": {
+			"Name": "Byte Array",
+			"BitmapSize": "Image Size",
+			"BgColor": "Background Color",
+			"ZoomIn": "Zoom In",
+			"ZoomOut": "Zoom Out",
+			"Export": "Export",
+			"ExportDes": "Export as binary file",
+			"Import": "Import",
+			"ImportDes": "Import binary file",
+			"Compile": "Write",
+			"CompileDes": "Write as binary data",
+			"CompileFinish": "Write completed",
+			"EditNotSafe": "Writing in current format may cause data loss\nContinue writing?"
+		},
 		"Date": {
+			"Name": "Date",
 			"Date": "Date",
 			"Time": "Time"
 		}
+	},
+	"AddVar": {
+		"Title": "Add Item",
+		"Name": "Item Name",
+		"Type": "Item Type"
 	},
 	"CodeFormat": {
 		"IndentTab": "Indent Type: Tab",
@@ -55,22 +116,28 @@
 		"Saving": "Saving..."
 	},
 	"Error": {
-		"ErrorTitle": "Error",
-		"UnknowFileType": "Unknown file type",
+		"UnknownFileType": "Unknown file type",
 		"ErrorSavingSetting": "Error saving settings",
 		"ParentNodeNeed": "Please select parent node first",
 		"NodeSelectionNeed": "Please select a node",
 		"FileExportFail": "File export failed",
-		"NoOpenedFile": "No opened file"
+		"NoOpenedFile": "No opened file",
+		"LZMANotSupport": "Current Flash version doesn't support LZMA algorithm\nPlease use other compression methods"
+	},
+	"AlertBox": {
+		"Ok": "OK",
+		"Cancel": "Cancel",
+		"Yes": "Yes",
+		"No": "No"
 	},
 	"Alert": {
-		"AlertTitle": "Notification",
 		"FileExportSuccess": "File exported successfully",
-		"FileSaveSuccess": "File saved successfully"
+		"FileSaveSuccess": "File saved successfully",
+		"LocaleChangeSuccess": "Language changed successfully\nRestart required for some changes to take effect."
 	},
 	"About": {
 		"Github": "Github Homepage",
-		"OnlineVersion": "View Online Version of Minerva",
+		"OnlineVersion": "View Minerva Online Version",
 		"About": "About Minerva"
 	}
 }

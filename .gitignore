@@ -3,4 +3,5 @@ Minerva.as3proj
 /.vscode
 /bin
 /obj
+/release
 minerva.iml

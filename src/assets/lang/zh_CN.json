@@ -86,6 +86,8 @@
 			"ExportDes": "导出为二进制文件",
 			"Import": "导入",
 			"ImportDes": "导入二进制文件",
+			"ImportSuccess": "导入成功",
+			"ImportFail": "导入失败",
 			"Compile": "写入",
 			"CompileDes": "写入为二进制数据",
 			"CompileFinish": "写入完成",
@@ -96,6 +98,11 @@
 			"Date": "日期",
 			"Time": "时间"
 		}
+	},
+	"AddVar": {
+		"Title": "添加项目",
+		"Name": "项目名称",
+		"Type": "项目类型"
 	},
 	"CodeFormat": {
 		"IndentTab": "缩进类型:  Tab",
@@ -126,9 +133,9 @@
 		"No": "否"
 	},
 	"Alert": {
-		"AlertTitle": "提示",
 		"FileExportSuccess": "文件导出成功",
-		"FileSaveSuccess": "文件保存成功"
+		"FileSaveSuccess": "文件保存成功",
+		"LocaleChangeSuccess": "语言切换成功\n部分界面在软件重启后生效"
 	},
 	"About": {
 		"Github": "Github主页",

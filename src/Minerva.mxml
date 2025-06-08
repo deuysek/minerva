@@ -41,33 +41,31 @@
         <s:Fade id="EffIn" alphaFrom="0.0" alphaTo="1.0" duration="100"/>
 
         <s:ArrayCollection id="pageGroup">
-            <fx:Object label="{langPack.PageTab.SolEditor}" index="0"
-                       tooltip="{langPack.PageTab.SolEditorDes}"/>
-            <fx:Object label="{langPack.PageTab.CodeBeautifier}" index="1"
-                       tooltip="{langPack.PageTab.CodeBeautifierDes}"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('PageTab.SolEditor')}" index="0"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('PageTab.CodeBeautifier')}" index="1"/>
         </s:ArrayCollection>
 
         <s:ArrayCollection id="compressMethod">
-            <fx:Object value="zlib" label="{langPack.CompressMethod.Zlib}" index="0"/>
-            <fx:Object value="deflate" label="{langPack.CompressMethod.Deflate}" index="1"/>
-            <fx:Object value="lzma" label="{langPack.CompressMethod.LZMA}" index="2"/>
+            <fx:Object value="zlib" label="{LocaleManager.getIns().getLangString('CompressMethod.Zlib')}" index="0"/>
+            <fx:Object value="deflate" label="{LocaleManager.getIns().getLangString('CompressMethod.Deflate')}" index="1"/>
+            <fx:Object value="lzma" label="{LocaleManager.getIns().getLangString('CompressMethod.LZMA')}" index="2"/>
         </s:ArrayCollection>
 
         <s:ArrayCollection id="byteDispType">
-            <fx:Object value="utf8" editable="false" label="{langPack.BytesDisplay.StringUtf8}" index="0"/>
-            <fx:Object value="utf16" editable="false" label="{langPack.BytesDisplay.StringUtf16}" index="1"/>
-            <fx:Object value="gb2312" editable="false" label="{langPack.BytesDisplay.StringGB2312}" index="2"/>
-            <fx:Object value="base64" editable="true" label="{langPack.BytesDisplay.Base64String}" index="3"/>
-            <fx:Object value="bitmap" editable="false" label="{langPack.BytesDisplay.BitmapData}" index="4"/>
-            <fx:Object value="rawHex" editable="true" label="{langPack.BytesDisplay.RawHex}" index="5"/>
-            <fx:Object value="object" editable="false" label="{langPack.BytesDisplay.Object}" index="6"/>
+            <fx:Object value="utf8" editable="false" label="{LocaleManager.getIns().getLangString('BytesDisplay.StringUtf8')}" index="0"/>
+            <fx:Object value="utf16" editable="false" label="{LocaleManager.getIns().getLangString('BytesDisplay.StringUtf16')}" index="1"/>
+            <fx:Object value="gb2312" editable="false" label="{LocaleManager.getIns().getLangString('BytesDisplay.StringGB2312')}" index="2"/>
+            <fx:Object value="base64" editable="true" label="{LocaleManager.getIns().getLangString('BytesDisplay.Base64String')}" index="3"/>
+            <fx:Object value="bitmap" editable="false" label="{LocaleManager.getIns().getLangString('BytesDisplay.BitmapData')}" index="4"/>
+            <fx:Object value="rawHex" editable="true" label="{LocaleManager.getIns().getLangString('BytesDisplay.RawHex')}" index="5"/>
+            <fx:Object value="object" editable="false" label="{LocaleManager.getIns().getLangString('BytesDisplay.Object')}" index="6"/>
         </s:ArrayCollection>
 
         <s:ArrayCollection id="indentType">
-            <fx:Object label="{langPack.CodeFormat.IndentTab}" value="1"/>
-            <fx:Object label="{langPack.CodeFormat.Indent2Space}" value="2"/>
-            <fx:Object label="{langPack.CodeFormat.Indent4Space}" value="4"/>
-            <fx:Object label="{langPack.CodeFormat.Indent8Space}" value="8"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('CodeFormat.IndentTab')}" value="1"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('CodeFormat.Indent2Space')}" value="2"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('CodeFormat.Indent4Space')}" value="4"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('CodeFormat.Indent8Space')}" value="8"/>
         </s:ArrayCollection>
 
     </fx:Declarations>
@@ -78,67 +76,68 @@
                          labelField="label" requireSelection="true" selectedIndex="0">
                 <s:itemRenderer>
                     <fx:Component>
-                        <s:ButtonBarButton toolTip="{data.toolTip}"/>
+                        <s:ButtonBarButton/>
                     </fx:Component>
                 </s:itemRenderer>
             </s:ButtonBar>
             <s:Spacer width="100%" height="30"/>
-            <mx:Button visible="{showOpen}" height="100%" label="{langPack.FileOperate.Open}"
-                       click="fileOpen()" icon="@Embed(source='assets/icons/documentOpenIcon.png')"
+            <mx:Button visible="{showOpen}" height="100%" label="{LocaleManager.getIns().getLangString('FileOperate.Open')}"
+                       click="fileOpen()" icon="@Embed(source='assets/icons/openIcon.png')"
                        includeInLayout="{showOpen}"/>
-            <mx:Button visible="{showSave}" height="100%" label="{langPack.FileOperate.Save}"
+            <mx:Button visible="{showSave}" height="100%" label="{LocaleManager.getIns().getLangString('FileOperate.Save')}"
                        click="fileSave()" icon="@Embed(source='assets/icons/saveIcon.png')"
                        includeInLayout="{showSave}"/>
-            <mx:Button visible="{showSave}" height="100%" label="{langPack.FileOperate.SaveAs}"
+            <mx:Button visible="{showSave}" height="100%" label="{LocaleManager.getIns().getLangString('FileOperate.SaveAs')}"
                        click="fileSaveAs()" icon="@Embed(source='assets/icons/saveAsIcon.png')"
                        includeInLayout="{showSave}"/>
-            <mx:Button visible="{showSave}" height="100%" label="{langPack.FileOperate.ExportJSON}"
-                       click="fileSaveAsJSON()" icon="@Embed(source='assets/icons/saveAsIcon.png')"
+            <mx:Button visible="{showSave}" height="100%" label="{LocaleManager.getIns().getLangString('FileOperate.ExportJSON')}"
+                       click="fileSaveAsJSON()" icon="@Embed(source='assets/icons/exportIcon.png')"
                        includeInLayout="{showSave}"/>
-            <mx:Button visible="{showSave}" height="100%" label="{langPack.FileOperate.Close}"
-                       click="fileClose()" includeInLayout="{showSave}"/>
+            <mx:Button visible="{showSave}" height="100%" label="{LocaleManager.getIns().getLangString('FileOperate.Close')}"
+                       click="fileClose()" includeInLayout="{showSave}"
+                       icon="@Embed(source='assets/icons/closeIcon.png')"/>
             <s:Image height="100%" click="onClickAbout()"
-                     source="@Embed(source='assets/icons/helpIcon.png')"
-                     toolTip="{langPack.About.About}" verticalAlign="middle"/>
+                     source="@Embed(source='assets/icons/settingIcon.png')"
+                     toolTip="{LocaleManager.getIns().getLangString('About.About')}" verticalAlign="middle"/>
         </s:controlBarContent>
         <mx:ViewStack id="vsNav" width="100%" height="100%" creationPolicy="all" selectedIndex="0" paddingRight="10"
                       paddingLeft="10" paddingTop="10" paddingBottom="10">
-            <s:NavigatorContent id="canReader" width="100%" height="100%" label="{langPack.PageTab.SolEditor}"
+            <s:NavigatorContent id="canReader" width="100%" height="100%" label="{LocaleManager.getIns().getLangString('PageTab.SolEditor')}"
                                 hideEffect="{EffOut}" showEffect="{EffIn}">
                 <s:VGroup width="100%" height="100%">
                     <s:HGroup width="100%" verticalAlign="middle">
                         <s:HGroup width="50%" horizontalAlign="left">
-                            <s:Button id="btnInsert" label="{langPack.EditorOperate.Insert}"
+                            <s:Button id="btnInsert" label="{LocaleManager.getIns().getLangString('EditorOperate.Insert')}"
                                       click="onClickInsert()" enabled="{hasFile}"
-                                      toolTip="{langPack.EditorOperate.Insert}"/>
-                            <s:Button id="btnRemove" label="{langPack.EditorOperate.Remove}"
+                                      toolTip="{LocaleManager.getIns().getLangString('EditorOperate.Insert')}"/>
+                            <s:Button id="btnRemove" label="{LocaleManager.getIns().getLangString('EditorOperate.Remove')}"
                                       click="onClickRemove()" enabled="{hasFile}"
-                                      toolTip="{langPack.EditorOperate.Remove}"/>
+                                      toolTip="{LocaleManager.getIns().getLangString('EditorOperate.Remove')}"/>
                         </s:HGroup>
                         <s:HGroup width="50%" horizontalAlign="right">
-                            <s:Label height="100%" text="{langPack.EditorOperate.SortMethod}"
+                            <s:Label height="100%" text="{LocaleManager.getIns().getLangString('EditorOperate.SortMethod')}"
                                      verticalAlign="middle"/>
                             <mx:ComboBox id="cbSort" change="onChangeSort(event)" editable="false"
-                                         selectedIndex="0">
+                                         selectedIndex="0" height="100%">
                                 <mx:dataProvider>
-                                    <fx:Object label="{langPack.EditorOperate.SortNameAsc}"
+                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortNameAsc')}"
                                                data="name-asc"
-                                               tooltip="{langPack.EditorOperate.SortNameAsc}"/>
-                                    <fx:Object label="{langPack.EditorOperate.SortNameDes}"
+                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortNameAsc')}"/>
+                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortNameDes')}"
                                                data="name-desc"
-                                               tooltip="{langPack.EditorOperate.SortNameDes}"/>
-                                    <fx:Object label="{langPack.EditorOperate.SortTypeAsc}"
+                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortNameDes')}"/>
+                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeAsc')}"
                                                data="type-asc"
-                                               tooltip="{langPack.EditorOperate.SortTypeAsc}"/>
-                                    <fx:Object label="{langPack.EditorOperate.SortTypeDes}"
+                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeAsc')}"/>
+                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeDes')}"
                                                data="type-desc"
-                                               tooltip="{langPack.EditorOperate.SortTypeDes}"/>
+                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeDes')}"/>
                                 </mx:dataProvider>
                             </mx:ComboBox>
-                            <s:Button id="btnRefresh" label="{langPack.EditorOperate.Refresh}"
-                                      click="onClickRefresh()" enabled="{hasFile}"
-                                      icon="@Embed(source='assets/icons/refresh.png')"
-                                      toolTip="{langPack.EditorOperate.RefreshDes}"/>
+                            <mx:Button id="btnRefresh" label="{LocaleManager.getIns().getLangString('EditorOperate.Refresh')}"
+                                       click="onClickRefresh()" enabled="{hasFile}"
+                                       icon="@Embed(source='assets/icons/refresh.png')"
+                                       toolTip="{LocaleManager.getIns().getLangString('EditorOperate.RefreshDes')}"/>
                         </s:HGroup>
                     </s:HGroup>
                     <mx:HDividedBox width="100%" height="100%">
@@ -161,7 +160,7 @@
                                                     width="100%"
                                                     height="100%">
                                     <s:HGroup verticalAlign="middle" horizontalAlign="left">
-                                        <s:Label text="{langPack.TypeForm.Info.Name}"/>
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Info.Name')}"/>
                                     </s:HGroup>
                                 </s:NavigatorContent>
 
@@ -169,7 +168,7 @@
                                                     width="100%"
                                                     height="100%">
                                     <s:HGroup verticalAlign="middle" horizontalAlign="left">
-                                        <s:Label text="{langPack.TypeForm.Empty.Name}"/>
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Empty.Name')}"/>
                                         <mx:ComboBox id="ddEmptyType"
                                                      change="treeValueChanged(event, ddEmptyType.selectedLabel, null)"
                                                      dataProvider="{arrDataTypes}" selectedIndex="1"/>
@@ -179,8 +178,8 @@
                                 <s:NavigatorContent id="ArrayType" hideEffect="{EffOut}" showEffect="{EffIn}"
                                                     width="100%" height="100%">
                                     <s:VGroup height="100%" width="100%">
-                                        <s:Label text="{langPack.TypeForm.Array.Name}" fontSize="20" fontWeight="bold"/>
-                                        <s:Label text="{langPack.TypeForm.Array.Hint}"/>
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Array.Name')}" fontSize="20" fontWeight="bold"/>
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Array.Hint')}"/>
                                         <s:DataGrid dataProvider="{new ArrayCollection(dataTree.selectedItem.children)}"
                                                     width="100%" height="100%"
                                                     selectionChange="dataTree.expandItem(dataTree.selectedItem,true,true);
@@ -189,11 +188,11 @@
                                             <s:columns>
                                                 <s:ArrayList>
                                                     <s:GridColumn dataField="name"
-                                                                  headerText="{langPack.TypeForm.Array.PrevTitleIndex}"/>
+                                                                  headerText="{LocaleManager.getIns().getLangString('TypeForm.Array.PrevTitleIndex')}"/>
                                                     <s:GridColumn dataField="type"
-                                                                  headerText="{langPack.TypeForm.Array.PrevTitleType}"/>
+                                                                  headerText="{LocaleManager.getIns().getLangString('TypeForm.Array.PrevTitleType')}"/>
                                                     <s:GridColumn dataField="value"
-                                                                  headerText="{langPack.TypeForm.Array.PrevTitleValue}"
+                                                                  headerText="{LocaleManager.getIns().getLangString('TypeForm.Array.PrevTitleValue')}"
                                                                   labelFunction="{getItemValue}"/>
                                                 </s:ArrayList>
                                             </s:columns>
@@ -204,9 +203,9 @@
                                 <s:NavigatorContent id="ObjectType" hideEffect="{EffOut}" showEffect="{EffIn}"
                                                     width="100%" height="100%">
                                     <s:VGroup width="100%" height="100%">
-                                        <s:Label text="{langPack.TypeForm.Object.Name}" fontSize="20"
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Object.Name')}" fontSize="20"
                                                  fontWeight="bold"/>
-                                        <s:Label text="{langPack.TypeForm.Object.Hint}"/>
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Object.Hint')}"/>
                                         <s:DataGrid dataProvider="{new ArrayCollection(dataTree.selectedItem.children)}"
                                                     width="100%" height="100%"
                                                     selectionChange="dataTree.expandItem(dataTree.selectedItem,true,true);
@@ -215,11 +214,11 @@
                                             <s:columns>
                                                 <s:ArrayList>
                                                     <s:GridColumn dataField="name"
-                                                                  headerText="{langPack.TypeForm.Object.PrevTitleIndex}"/>
+                                                                  headerText="{LocaleManager.getIns().getLangString('TypeForm.Object.PrevTitleIndex')}"/>
                                                     <s:GridColumn dataField="type"
-                                                                  headerText="{langPack.TypeForm.Object.PrevTitleType}"/>
+                                                                  headerText="{LocaleManager.getIns().getLangString('TypeForm.Object.PrevTitleType')}"/>
                                                     <s:GridColumn dataField="value"
-                                                                  headerText="{langPack.TypeForm.Object.PrevTitleValue}"
+                                                                  headerText="{LocaleManager.getIns().getLangString('TypeForm.Object.PrevTitleValue')}"
                                                                   labelFunction="{getItemValue}"/>
                                                 </s:ArrayList>
                                             </s:columns>
@@ -230,28 +229,28 @@
                                 <s:NavigatorContent id="NumberType" hideEffect="{EffOut}" showEffect="{EffIn}"
                                                     width="100%" height="100%">
                                     <s:VGroup width="100%" height="100%" gap="10">
-                                        <s:Label text="{langPack.TypeForm.Number.Name}" fontSize="20"
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Number.Name')}" fontSize="20"
                                                  fontWeight="bold"/>
                                         <s:TextInput id="numberValueInput" width="100%"
                                                      change="treeValueChanged(event, 'invalid', numberValueInput.text)"
                                                      editable="true"/>
                                         <s:Spacer width="100%"/>
-                                        <s:Label text="{langPack.TypeForm.Number.Hint}"/>
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Number.Hint')}"/>
                                     </s:VGroup>
                                 </s:NavigatorContent>
 
                                 <s:NavigatorContent id="BooleanType" hideEffect="{EffOut}" showEffect="{EffIn}"
                                                     width="100%" height="100%">
                                     <s:VGroup width="100%" height="100%" gap="10">
-                                        <s:Label text="{langPack.TypeForm.Boolean.Name}" fontSize="20"
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Boolean.Name')}" fontSize="20"
                                                  fontWeight="bold"/>
                                         <s:HGroup verticalAlign="middle" horizontalAlign="left">
                                             <s:RadioButton id="radTrue" label="True"
-                                                            change="treeValueChanged(event, 'invalid', true)"
-                                                            enabled="true" groupName="rgBoolean"/>
+                                                           change="treeValueChanged(event, 'invalid', true)"
+                                                           enabled="true" groupName="rgBoolean"/>
                                             <s:RadioButton id="radFalse" label="False"
-                                                            change="treeValueChanged(event, 'invalid', false)"
-                                                            enabled="true" groupName="rgBoolean"/>
+                                                           change="treeValueChanged(event, 'invalid', false)"
+                                                           enabled="true" groupName="rgBoolean"/>
                                         </s:HGroup>
                                     </s:VGroup>
                                 </s:NavigatorContent>
@@ -259,20 +258,20 @@
                                 <s:NavigatorContent id="StringType" hideEffect="{EffOut}" showEffect="{EffIn}"
                                                     width="100%" height="100%">
                                     <s:VGroup width="100%" height="100%">
-                                        <s:Label text="{langPack.TypeForm.String.Name}" fontSize="20"
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.String.Name')}" fontSize="20"
                                                  fontWeight="bold"/>
                                         <s:HGroup width="100%" gap="7">
                                             <s:Button id="btnBase64Encode" width="25%" height="100%"
-                                                      label="{langPack.TypeForm.String.Base64Encode}"
+                                                      label="{LocaleManager.getIns().getLangString('TypeForm.String.Base64Encode')}"
                                                       click="base64Encode(event, stringValueInput.text)"/>
                                             <s:Button id="btnBase64Decode" width="25%" height="100%"
-                                                      label="{langPack.TypeForm.String.Base64Decode}"
+                                                      label="{LocaleManager.getIns().getLangString('TypeForm.String.Base64Decode')}"
                                                       click="base64Decode(event, stringValueInput.text)"/>
                                             <s:Button id="btnUriEncode" width="25%" height="100%"
-                                                      label="{langPack.TypeForm.String.UriEncode}"
+                                                      label="{LocaleManager.getIns().getLangString('TypeForm.String.UriEncode')}"
                                                       click="uriEncode(event, stringValueInput.text)"/>
                                             <s:Button id="btnUriDecode" width="25%" height="100%"
-                                                      label="{langPack.TypeForm.String.UriDecode}"
+                                                      label="{LocaleManager.getIns().getLangString('TypeForm.String.UriDecode')}"
                                                       click="uriDecode(event, stringValueInput.text)"/>
                                         </s:HGroup>
                                         <s:TextArea id="stringValueInput" width="100%" height="100%"
@@ -285,24 +284,24 @@
                                 <s:NavigatorContent id="ByteArrayType" hideEffect="{EffOut}" showEffect="{EffIn}"
                                                     width="100%" height="100%">
                                     <s:VGroup gap="5" width="100%" height="100%">
-                                        <s:Label text="{langPack.TypeForm.ByteArray.Name}" fontSize="20"
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.Name')}" fontSize="20"
                                                  fontWeight="bold"/>
                                         <s:HGroup gap="10" width="100%" horizontalAlign="left" verticalAlign="middle">
-                                            <s:Label text="{langPack.BytesDisplay.Title}:" textAlign="center"
+                                            <s:Label text="{LocaleManager.getIns().getLangString('BytesDisplay.Title')}:" textAlign="center"
                                                      width="20%"/>
                                             <s:DropDownList id="bytesDispCombo" dataProvider="{byteDispType}"
-                                                            selectedIndex="0" height="100%" width="40%"
+                                                            selectedIndex="0" height="100%" width="30%"
                                                             change="displayByteArray()"/>
                                         </s:HGroup>
                                         <s:HGroup gap="10" width="100%" horizontalAlign="left" verticalAlign="middle">
-                                            <s:Label text="{langPack.CompressMethod.Title}:" textAlign="center"
+                                            <s:Label text="{LocaleManager.getIns().getLangString('CompressMethod.Title')}:" textAlign="center"
                                                      width="20%"/>
                                             <s:DropDownList id="compressMethodCombo" dataProvider="{compressMethod}"
-                                                            selectedIndex="0" width="40%"/>
-                                            <s:Button id="btnCompress" label="{langPack.CompressMethod.Compress}"
-                                                      click="compressByteArray(event)" width="15%"/>
-                                            <s:Button id="btnUncompress" label="{langPack.CompressMethod.Uncompress}"
-                                                      click="uncompressByteArray(event)" width="15%"/>
+                                                            selectedIndex="0" width="30%"/>
+                                            <s:Button id="btnCompress" label="{LocaleManager.getIns().getLangString('CompressMethod.Compress')}"
+                                                      click="compressByteArray(event)"/>
+                                            <s:Button id="btnUncompress" label="{LocaleManager.getIns().getLangString('CompressMethod.Uncompress')}"
+                                                      click="uncompressByteArray(event)"/>
                                         </s:HGroup>
                                         <mx:ViewStack width="100%" height="100%"
                                                       selectedIndex="{bytesDispCombo.selectedItem.value == 'bitmap' ? 0 : 1}">
@@ -325,18 +324,16 @@
                                                     </s:BorderContainer>
                                                     <s:HGroup gap="10" verticalAlign="middle" horizontalAlign="center"
                                                               width="100%">
-                                                        <s:Label text="{langPack.TypeForm.ByteArray.BitmapSize}:"/>
+                                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.BitmapSize')}:"/>
                                                         <s:Label id="byteBitmapSize"/>
                                                         <s:Spacer/>
-                                                        <s:Label text="{langPack.TypeForm.ByteArray.BgColor}:"/>
+                                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.BgColor')}:"/>
                                                         <mx:ColorPicker id="byteBitmapBgColor" color="black"/>
                                                         <s:Spacer/>
-                                                        <s:Button label="{langPack.TypeForm.ByteArray.ZoomIn}"
-                                                                  click="{byteBitmap.scaleX += 0.2; byteBitmap.scaleY += 0.2}"
-                                                                  height="100%"/>
-                                                        <s:Button label="{langPack.TypeForm.ByteArray.ZoomOut}"
-                                                                  click="{byteBitmap.scaleX -= 0.2; byteBitmap.scaleY -= 0.2}"
-                                                                  height="100%"/>
+                                                        <s:Image source="@Embed('assets/icons/zoomInIcon.png')"
+                                                                 click="{byteBitmap.scaleX += 0.2; byteBitmap.scaleY += 0.2}"/>
+                                                        <s:Image source="@Embed('assets/icons/zoomOutIcon.png')"
+                                                                 click="{byteBitmap.scaleX -= 0.2; byteBitmap.scaleY -= 0.2}"/>
                                                     </s:HGroup>
                                                 </s:VGroup>
                                             </s:NavigatorContent>
@@ -347,15 +344,16 @@
                                                     <s:HGroup width="100%" horizontalAlign="center"
                                                               verticalAlign="middle"
                                                               gap="20">
-                                                        <s:Button label="{langPack.TypeForm.ByteArray.Export}"
-                                                                  toolTip="{langPack.TypeForm.ByteArray.ExportDes}"
+                                                        <s:Button label="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.Export')}"
+                                                                  toolTip="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.ExportDes')}"
                                                                   click="new File().save(dataTree.selectedItem.value,'Export.bin')"/>
-                                                        <s:Button label="{langPack.TypeForm.ByteArray.Import}"
-                                                                  toolTip="{langPack.TypeForm.ByteArray.ImportDes}"/>
+                                                        <s:Button label="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.Import')}"
+                                                                  toolTip="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.ImportDes')}"
+                                                        click="{importExternalByteArray()}"/>
                                                         <s:Spacer width="100%"/>
-                                                        <s:Button label="{langPack.TypeForm.ByteArray.Compile}"
-                                                                  toolTip="{langPack.TypeForm.ByteArray.CompileDes}"
-                                                                  click="{bytesDispCombo.selectedItem.editable ? compile2bin(AlertBox.YES) : AlertBox.show(langPack.TypeForm.ByteArray.EditNotSafe,'',AlertBox.OK | AlertBox.CANCEL,this,compile2bin)}"
+                                                        <s:Button label="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.Compile')}"
+                                                                  toolTip="{LocaleManager.getIns().getLangString('TypeForm.ByteArray.CompileDes')}"
+                                                                  click="{bytesDispCombo.selectedItem.editable ? compile2bin(AlertBox.YES) : AlertBox.show(LocaleManager.getIns().getLangString('TypeForm.ByteArray.EditNotSafe'),'',AlertBox.OK | AlertBox.CANCEL,this,compile2bin)}"
                                                                   height="100%"/>
                                                     </s:HGroup>
                                                 </s:VGroup>
@@ -368,9 +366,9 @@
                                                     width="100%"
                                                     height="100%">
                                     <s:VGroup>
-                                        <s:Label text="{langPack.TypeForm.Date.Name}" fontSize="20" fontWeight="bold"/>
+                                        <s:Label text="{LocaleManager.getIns().getLangString('TypeForm.Date.Name')}" fontSize="20" fontWeight="bold"/>
                                         <s:HGroup width="100%" gap="7">
-                                            <s:Label height="100%" text="{langPack.TypeForm.Date.Date}:"
+                                            <s:Label height="100%" text="{LocaleManager.getIns().getLangString('TypeForm.Date.Date')}:"
                                                      verticalAlign="middle"/>
                                             <mx:DateField id="dateDF"
                                                           change="treeValueChanged(event, 'invalid', dateDF.selectedDate, txtHour.text, txtMin.text, txtSec.text)"
@@ -378,7 +376,7 @@
                                                           yearNavigationEnabled="true"/>
                                         </s:HGroup>
                                         <s:HGroup width="100%" gap="10">
-                                            <s:Label height="100%" text="{langPack.TypeForm.Date.Time}:"
+                                            <s:Label height="100%" text="{LocaleManager.getIns().getLangString('TypeForm.Date.Time')}:"
                                                      verticalAlign="middle"/>
                                             <s:TextInput id="txtHour" width="40"
                                                          change="treeValueChanged(event, 'invalid', dateDF.selectedDate, txtHour.text, txtMin.text, txtSec.text)"
@@ -404,22 +402,37 @@
             </s:NavigatorContent>
 
             <s:NavigatorContent id="canCode" width="100%" height="100%"
-                                label="{langPack.PageTab.CodeBeautifier}" hideEffect="{EffOut}" showEffect="{EffIn}">
+                                label="{LocaleManager.getIns().getLangString('PageTab.CodeBeautifier')}" hideEffect="{EffOut}" showEffect="{EffIn}">
                 <s:VGroup width="100%" height="100%" gap="10">
                     <s:HGroup width="100%" horizontalAlign="center" gap="10" verticalAlign="middle">
                         <mx:ComboBox id="ddSize" change="updateConfig()" selectedIndex="0" dataProvider="{indentType}"/>
-                        <mx:CheckBox id="cbBraces" label="{langPack.CodeFormat.BraceInNewLine}"
+                        <mx:CheckBox id="cbBraces" label="{LocaleManager.getIns().getLangString('CodeFormat.BraceInNewLine')}"
                                      change="updateConfig()"/>
-                        <mx:CheckBox id="cbPreserve" label="{langPack.CodeFormat.PreserverBlankLine}"
+                        <mx:CheckBox id="cbPreserve" label="{LocaleManager.getIns().getLangString('CodeFormat.PreserverBlankLine')}"
                                      change="updateConfig()" selected="true"/>
                         <!--<mx:CheckBox id="cbKeepIndentation" label="" change="updateConfig()"/>-->
                     </s:HGroup>
                     <s:TextArea id="txtCode" width="100%" height="100%" editable="true" enabled="true"
-                                 horizontalScrollPolicy="auto" textAlign="left"/>
+                                horizontalScrollPolicy="auto" textAlign="left"/>
                     <s:Button id="btnFormat" width="100%" height="40"
-                               label="{langPack.CodeFormat.DoFormat}" click="formatHandler(event)"/>
+                              label="{LocaleManager.getIns().getLangString('CodeFormat.DoFormat')}" click="formatHandler(event)"/>
                 </s:VGroup>
             </s:NavigatorContent>
         </mx:ViewStack>
     </s:Panel>
+
+    <s:HGroup width="100%" verticalAlign="middle" horizontalAlign="right" gap="3"
+    paddingTop="5" paddingRight="5">
+        <fx:Script><![CDATA[
+            import com.coursevector.minerva.LocaleManager;
+            private function changeLocale(locale:String):void {
+                var result:Boolean = LocaleManager.getIns().changeLocale(locale);
+                if(!result) return;
+                AlertBox.show(LocaleManager.getIns().getLangString('Alert.LocaleChangeSuccess'));
+                invalidateDisplayList();
+            }
+            ]]></fx:Script>
+        <s:Image source="@Embed('assets/icons/chinese.png')" click="{changeLocale('zh_CN')}" toolTip="切换中文"/>
+        <s:Image source="@Embed('assets/icons/english.png')" click="{changeLocale('en_US')}" toolTip="Switch to English"/>
+    </s:HGroup>
 </s:WindowedApplication>

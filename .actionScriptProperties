@@ -24,6 +24,7 @@
           <pathEntry path="Minerva File Logo.ai"/>
           <pathEntry path="style"/>
           <pathEntry path="text-x-generic.png"/>
+          <pathEntry path="style_old"/>
         </airExcludes>
         <anePaths/>
         <newLaunchParams/>

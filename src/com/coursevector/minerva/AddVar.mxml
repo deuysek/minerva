@@ -1,75 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
-				xmlns:s="library://ns.adobe.com/flex/spark"
-				xmlns:mx="library://ns.adobe.com/flex/mx"
-				width="40%" height="30%" creationComplete="reset()" title="新增变量">
-	
-	<fx:Script>
-		<![CDATA[
-			import mx.collections.ArrayCollection;
-			import mx.collections.IList;
-			import mx.managers.PopUpManager;
-			
-			public var callBack:Function;
-			private var _id:int;
-			
-			[Bindable]
-			private var arrDataTypes:IList = new ArrayCollection([
-				'Array', 'Boolean', 'ByteArray', 'Date', 
-				'Integer', 'Null', 'Number', 'Object', 
-				'String', 'Undefined', 'XML', 'XMLDocument'
-			]);
-			
-			public function reset():void {
-				txtName.text = "item " + _id;
-				txtName.errorString = "";
-				ddType.selectedIndex = 8;
-			}
-			
-			public function setData(value:Array):void {
-				reset();
-				txtName.text = value[0];
-				ddType.selectedIndex = value[1];
-			}
-			
-			public function getData():Array {
-				return [txtName.text, ddType.selectedIndex];
-			}
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               creationComplete="reset()" title="{LocaleManager.getIns().getLangString('AddVar.Title')}">
 
-			public function setCurrentId(id:int):void {
-				_id = id;
-			}
-			
-			public function confirmClick(evt:Event):void {
-				PopUpManager.removePopUp(this);
-				if(callBack != null) callBack(getData());
-			}
-			
-			public function cancelClick(evt:Event):void {
-				PopUpManager.removePopUp(this);
-			}
+    <fx:Script>
+		<![CDATA[
+		import mx.collections.ArrayCollection;
+		import mx.collections.IList;
+		import mx.managers.PopUpManager;
+
+		public var callBack:Function;
+		private var _id:int;
+
+		[Bindable]
+		private var arrDataTypes:IList = new ArrayCollection([
+			'Array', 'Boolean', 'ByteArray', 'Date',
+			'Integer', 'Null', 'Number', 'Object',
+			'String', 'Undefined', 'XML', 'XMLDocument'
+		]);
+
+		public function reset():void {
+			txtName.text = "item " + _id;
+			txtName.errorString = "";
+			ddType.selectedIndex = 8;
+		}
+
+		public function setData(value:Array):void {
+			reset();
+			txtName.text = value[0];
+			ddType.selectedIndex = value[1];
+		}
+
+		public function getData():Array {
+			return [txtName.text, ddType.selectedIndex];
+		}
+
+		public function setCurrentId(id:int):void {
+			_id = id;
+		}
+
+		public function confirmClick(evt:Event):void {
+			PopUpManager.removePopUp(this);
+			if (callBack != null) callBack(getData());
+		}
+
+		public function cancelClick(evt:Event):void {
+			PopUpManager.removePopUp(this);
+		}
 		]]>
 	</fx:Script>
-	
-	<fx:Declarations>
-		<mx:StringValidator minLength="2" property="text" required="true" source="{txtName}"/>
-	</fx:Declarations>
-	
-	<s:VGroup gap="10" paddingBottom="10" paddingTop="10">
-		<s:Form>
-			<s:FormItem width="100%" label="变量名称" required="true" toolTip="Name of new variable">
-				<s:TextInput id="txtName" maxChars="255" width="100%" height="100%"/>
-			</s:FormItem>
-			
-			<s:FormItem width="100%" label="数据类型" required="true" toolTip="The data type of the new variable">
-				<s:DropDownList id="ddType" dataProvider="{arrDataTypes}" selectedIndex="7" width="100%" height="100%"/>
-			</s:FormItem>
-		</s:Form>
-		
-		<s:HGroup width="100%" horizontalAlign="center" gap="20">
-			<s:Button label=" 确认 " click="confirmClick(event)" width="25%"/>
-			<s:Button label=" 取消 " click="cancelClick(event)" width="25%"/>
-		</s:HGroup>
-	</s:VGroup>
-	
+
+    <fx:Declarations>
+        <mx:StringValidator minLength="2" property="text" required="true" source="{txtName}"/>
+    </fx:Declarations>
+
+    <s:VGroup gap="10" paddingBottom="10" paddingTop="10">
+        <s:Form>
+            <s:FormItem width="100%" label="{LocaleManager.getIns().getLangString('AddVar.Name')}"
+                        required="true">
+                <s:TextInput id="txtName" maxChars="255" width="100%" height="100%"/>
+            </s:FormItem>
+
+            <s:FormItem width="100%" label="{LocaleManager.getIns().getLangString('AddVar.Type')}">
+                <s:DropDownList id="ddType" dataProvider="{arrDataTypes}" selectedIndex="7" width="100%" height="100%"/>
+            </s:FormItem>
+        </s:Form>
+
+        <s:HGroup width="100%" horizontalAlign="center" gap="20">
+            <s:Button label="{LocaleManager.getIns().getLangString('AlertBox.Ok')}" click="confirmClick(event)" width="25%"/>
+            <s:Button label="{LocaleManager.getIns().getLangString('AlertBox.Cancel')}" click="cancelClick(event)" width="25%"/>
+        </s:HGroup>
+    </s:VGroup>
+
 </s:TitleWindow>
