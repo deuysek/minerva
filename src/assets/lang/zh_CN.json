@@ -1,0 +1,138 @@
+{
+	"PageTab": {
+		"SolEditor": "Sol 编辑器",
+		"CodeBeautifier": "代码格式化",
+		"SolEditorDes": "编辑Sol文件",
+		"CodeBeautifierDes": "格式化json/js代码"
+	},
+	"FileOperate": {
+		"Open": "打开文件",
+		"Save": "保存文件",
+		"SaveAs": "另存为",
+		"Close": "关闭",
+		"ExportJSON": "导出JSON"
+	},
+	"CompressMethod": {
+		"Title": "压缩方法",
+		"Zlib": "Zlib",
+		"Deflate": "Deflate",
+		"LZMA": "LZMA",
+		"Compress": "压缩",
+		"Uncompress": "解压"
+	},
+	"BytesDisplay": {
+		"Title": "显示模式",
+		"StringUtf8": "UTF-8字符串",
+		"StringUtf16": "UTF-16字符串",
+		"StringGB2312": "GB2312字符串",
+		"Base64String": "Base64字符串",
+		"BitmapData": "图片模式",
+		"RawHex": "十六进制",
+		"Object": "Flash对象"
+	},
+	"EditorOperate": {
+		"Refresh": "刷新",
+		"RefreshDes": "重载文件",
+		"Insert": "插入项目",
+		"Remove": "删除项目",
+		"SortMethod": "排序方式:",
+		"SortNameAsc": "按名称升序",
+		"SortNameDes": "按名称降序",
+		"SortTypeAsc": "按类型升序",
+		"SortTypeDes": "按类型降序"
+	},
+	"TypeForm": {
+		"Info": {
+			"Name": "AMF数据包"
+		},
+		"Empty": {
+			"Name": "数据类型"
+		},
+		"Object":{
+			"Name": "对象",
+			"Hint": "选择子项进行编辑",
+			"PrevTitleIndex": "名称",
+			"PrevTitleType": "类型",
+			"PrevTitleValue": "值"
+		},
+		"Array":{
+			"Name": "数组",
+			"Hint": "选择子项进行编辑",
+			"PrevTitleIndex": "索引",
+			"PrevTitleType": "类型",
+			"PrevTitleValue": "值"
+		},
+		"Number": {
+			"Name": "数字类型",
+			"Hint": "支持科学计数法, 如:1e4 = 10000"
+		},
+		"Boolean": {
+			"Name": "布尔类型"
+		},
+		"String": {
+			"Name": "字符串类型",
+			"Base64Encode": "Base64编码",
+			"Base64Decode": "Base64解码",
+			"UriEncode": "Uri编码",
+			"UriDecode": "Uri解码"
+		},
+		"ByteArray": {
+			"Name": "字节数组",
+			"BitmapSize": "图片尺寸",
+			"BgColor": "背景颜色",
+			"ZoomIn": "放大",
+			"ZoomOut": "缩小",
+			"Export": "导出",
+			"ExportDes": "导出为二进制文件",
+			"Import": "导入",
+			"ImportDes": "导入二进制文件",
+			"Compile": "写入",
+			"CompileDes": "写入为二进制数据",
+			"CompileFinish": "写入完成",
+			"EditNotSafe": "当前格式写入可能导致数据丢失\n是否继续写入？"
+		},
+		"Date": {
+			"Name": "日期类型",
+			"Date": "日期",
+			"Time": "时间"
+		}
+	},
+	"CodeFormat": {
+		"IndentTab": "缩进类型:  Tab",
+		"Indent2Space": "缩进类型:2空格",
+		"Indent4Space": "缩进类型:4空格",
+		"Indent8Space": "缩进类型:8空格",
+		"BraceInNewLine": "大括号换行",
+		"PreserverBlankLine": "保留空行",
+		"DoFormat": "格式化代码(js/json)"
+	},
+	"Waiting": {
+		"Loading": "正在加载...",
+		"Saving": "正在保存..."
+	},
+	"Error": {
+		"UnknownFileType": "未知文件类型",
+		"ErrorSavingSetting": "保存设置出错",
+		"ParentNodeNeed": "请先选择父节点",
+		"NodeSelectionNeed": "请选择节点",
+		"FileExportFail": "文件导出失败",
+		"NoOpenedFile": "没有打开的文件",
+		"LZMANotSupport": "当前版本的Flash不支持LZMA算法\n请使用其他压缩方法"
+	},
+	"AlertBox": {
+		"Ok": "确定",
+		"Cancel": "取消",
+		"Yes": "是",
+		"No": "否"
+	},
+	"Alert": {
+		"AlertTitle": "提示",
+		"FileExportSuccess": "文件导出成功",
+		"FileSaveSuccess": "文件保存成功"
+	},
+	"About": {
+		"Github": "Github主页",
+		"OnlineVersion": "查看网页版Minerva",
+		"About": "关于Minerva"
+	}
+}

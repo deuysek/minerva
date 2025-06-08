@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         title="{alertTitle}" close="onClose()">
+
+    <fx:Script>
+        <![CDATA[
+        import mx.core.FlexGlobals;
+        import mx.managers.PopUpManager;
+
+        public static const OK:uint = 1;
+        public static const CANCEL:uint = 2;
+        public static const YES:uint = 4;
+        public static const NO:uint = 8;
+
+        [Bindable]
+        public var alertText:String;
+        [Bindable]
+        public var alertTitle:String;
+        [Bindable]
+        public var buttons:uint = OK;
+        public var closeHandler:Function;
+
+        public static function show(text:String, title:String = "", flags:uint = OK, parent:DisplayObject = null, closeHandler:Function = null):void {
+            var win:AlertBox = new AlertBox();
+            win.alertText = text;
+            win.alertTitle = title;
+            win.buttons = flags;
+            win.closeHandler = closeHandler;
+            PopUpManager.addPopUp(win, parent ? parent : FlexGlobals.topLevelApplication as DisplayObject, true);
+            if(win.width < 200) win.width = 200;
+            PopUpManager.centerPopUp(win);
+        }
+
+        private function onClose():void {
+            PopUpManager.removePopUp(this);
+        }
+
+        private function handleClick(flag:uint):void {
+            if (closeHandler != null) closeHandler(flag);
+            onClose();
+        }
+        ]]>
+    </fx:Script>
+
+    <s:VGroup width="100%" paddingBottom="15" paddingLeft="15" paddingRight="15" paddingTop="15" gap="10" horizontalAlign="center" verticalAlign="middle">
+        <s:Label text="{alertText}" width="100%" textAlign="center" height="80%"/>
+        <s:HGroup width="100%" horizontalAlign="center" gap="10" height="20%">
+            <s:Button id="btnOk" label="{langPack.AlertBox.Ok}" click="handleClick(OK)" includeInLayout="{Boolean(buttons &amp; OK)}"/>
+            <s:Button id="btnCancel" label="{langPack.AlertBox.Cancel}" click="handleClick(CANCEL)" includeInLayout="{Boolean(buttons &amp; CANCEL)}"/>
+            <s:Button id="btnYes" label="{langPack.AlertBox.Yes}" click="handleClick(YES)" includeInLayout="{Boolean(buttons &amp; YES)}"/>
+            <s:Button id="btnNo" label="{langPack.AlertBox.No}" click="handleClick(NO)" includeInLayout="{Boolean(buttons &amp; NO)}"/>
+        </s:HGroup>
+    </s:VGroup>
+</s:TitleWindow>

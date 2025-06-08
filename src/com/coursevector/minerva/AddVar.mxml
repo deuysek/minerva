@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow 
-	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	width="40%" 
-	height="30%" 
-	paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10" 
-	creationComplete="reset()" title="新增变量">
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				width="40%" height="30%" creationComplete="reset()" title="新增变量">
 	
-	<mx:Script>
+	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
 			import mx.managers.PopUpManager;
 			
 			public var callBack:Function;
 			private var _id:int;
 			
 			[Bindable]
-			private var arrDataTypes:Array = [
+			private var arrDataTypes:IList = new ArrayCollection([
 				'Array', 'Boolean', 'ByteArray', 'Date', 
 				'Integer', 'Null', 'Number', 'Object', 
 				'String', 'Undefined', 'XML', 'XMLDocument'
-			];
-			
-			override protected function startDragging(event:MouseEvent):void {
-				// 空实现，阻止拖动
-			}
+			]);
 			
 			public function reset():void {
 				txtName.text = "item " + _id;
@@ -46,32 +42,34 @@
 			
 			public function confirmClick(evt:Event):void {
 				PopUpManager.removePopUp(this);
-				if(callBack) callBack(getData());
+				if(callBack != null) callBack(getData());
 			}
 			
 			public function cancelClick(evt:Event):void {
 				PopUpManager.removePopUp(this);
 			}
 		]]>
-	</mx:Script>
+	</fx:Script>
 	
-	<mx:StringValidator required="true" source="{txtName}" property="text" minLength="2" />
+	<fx:Declarations>
+		<mx:StringValidator minLength="2" property="text" required="true" source="{txtName}"/>
+	</fx:Declarations>
 	
-	<mx:Form>
-		<mx:FormItem label="变量名称" width="100%" required="true">
-			<mx:toolTip>Name of the new variable.</mx:toolTip>
-			<mx:TextInput id="txtName" maxChars="255" width="100%" />
-		</mx:FormItem>
+	<s:VGroup gap="10" paddingBottom="10" paddingTop="10">
+		<s:Form>
+			<s:FormItem width="100%" label="变量名称" required="true" toolTip="Name of new variable">
+				<s:TextInput id="txtName" maxChars="255" width="100%" height="100%"/>
+			</s:FormItem>
+			
+			<s:FormItem width="100%" label="数据类型" required="true" toolTip="The data type of the new variable">
+				<s:DropDownList id="ddType" dataProvider="{arrDataTypes}" selectedIndex="7" width="100%" height="100%"/>
+			</s:FormItem>
+		</s:Form>
 		
-		<mx:FormItem label="数据类型" width="100%" required="true">
-			<mx:toolTip>The data type of the new variable.</mx:toolTip>
-			<mx:ComboBox dataProvider="{arrDataTypes}" selectedIndex="7" id="ddType"></mx:ComboBox>
-		</mx:FormItem>
-	</mx:Form>
+		<s:HGroup width="100%" horizontalAlign="center" gap="20">
+			<s:Button label=" 确认 " click="confirmClick(event)" width="25%"/>
+			<s:Button label=" 取消 " click="cancelClick(event)" width="25%"/>
+		</s:HGroup>
+	</s:VGroup>
 	
-	<mx:HBox width="100%" horizontalAlign="center" height="30">
-		<mx:Button label=" 确认 " click="confirmClick(event)"/>
-		<mx:Button label=" 取消 " click="cancelClick(event)"/>
-	</mx:HBox>
-	
-</mx:TitleWindow>
+</s:TitleWindow>

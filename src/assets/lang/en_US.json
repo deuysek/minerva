@@ -1,0 +1,76 @@
+{
+	"PageTab": {
+		"SolEditor": "Sol Editor",
+		"CodeBeautifier": "Code Beautifier",
+		"SolEditorDes": "Edit Sol files",
+		"CodeBeautifierDes": "Format json/js code"
+	},
+	"FileOperate": {
+		"Open": "Open File",
+		"Save": "Save File",
+		"SaveAs": "Save As",
+		"Close": "Close",
+		"ExportJSON": "Export JSON"
+	},
+	"EditorOperate": {
+		"Refresh": "Refresh",
+		"RefreshDes": "Reload file",
+		"Insert": "Insert Item",
+		"Remove": "Remove Item",
+		"SortMethod": "Sort Method:",
+		"SortNameAsc": "By Name (Ascending)",
+		"SortNameDes": "By Name (Descending)",
+		"SortTypeAsc": "By Type (Ascending)",
+		"SortTypeDes": "By Type (Descending)"
+	},
+	"TypeForm": {
+		"Empty": {
+			"Name": "Data Type"
+		},
+		"Number": {
+			"Hint": "Supports scientific notation, e.g.: 1e4 = 10000"
+		},
+		"String": {
+			"Base64Encode": "b64 Encode",
+			"Base64Decode": "b64 Decode",
+			"UriEncode": "URI Encode",
+			"UriDecode": "URI Decode"
+		},
+		"Date": {
+			"Date": "Date",
+			"Time": "Time"
+		}
+	},
+	"CodeFormat": {
+		"IndentTab": "Indent Type: Tab",
+		"Indent2Space": "Indent Type: 2 Spaces",
+		"Indent4Space": "Indent Type: 4 Spaces",
+		"Indent8Space": "Indent Type: 8 Spaces",
+		"BraceInNewLine": "Braces on New Line",
+		"PreserverBlankLine": "Preserve Blank Lines",
+		"DoFormat": "Format Code (js/json)"
+	},
+	"Waiting": {
+		"Loading": "Loading...",
+		"Saving": "Saving..."
+	},
+	"Error": {
+		"ErrorTitle": "Error",
+		"UnknowFileType": "Unknown file type",
+		"ErrorSavingSetting": "Error saving settings",
+		"ParentNodeNeed": "Please select parent node first",
+		"NodeSelectionNeed": "Please select a node",
+		"FileExportFail": "File export failed",
+		"NoOpenedFile": "No opened file"
+	},
+	"Alert": {
+		"AlertTitle": "Notification",
+		"FileExportSuccess": "File exported successfully",
+		"FileSaveSuccess": "File saved successfully"
+	},
+	"About": {
+		"Github": "Github Homepage",
+		"OnlineVersion": "View Online Version of Minerva",
+		"About": "About Minerva"
+	}
+}

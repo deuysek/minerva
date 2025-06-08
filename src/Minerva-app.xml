@@ -3,7 +3,7 @@
     <id>com.duskeye.minerva</id>
     <versionLabel>3.7.0</versionLabel>
     <versionNumber>3.7.0</versionNumber>
-    <filename>minerva</filename>
+    <filename>Minerva</filename>
     <name>Duskeye minerva</name>
     
     <description>Flash debugging tool. Supports reading/writing AS2 and AS3 Local SharedObject (.sol) files. Can also format JavaScript and similar languages.</description>

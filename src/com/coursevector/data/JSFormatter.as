@@ -66,14 +66,14 @@ package com.coursevector.data {
 		protected var n_newlines:int;
 		protected var input_length:int;
 		
-		protected var opt_indent_size:int;
-		protected var opt_braces_on_own_line:Boolean;
-		protected var opt_indent_char:String;
-		protected var opt_preserve_newlines:Boolean;
-		protected var opt_max_preserve_newlines:Boolean;
-		protected var opt_indent_level:int;
-		protected var opt_space_after_anon_function:Boolean;
-		protected var opt_keep_array_indentation:Boolean;
+		protected var opt_indent_size:int;//缩进长度
+		protected var opt_braces_on_own_line:Boolean;//大括号换行
+		protected var opt_indent_char:String;//缩进字符
+		protected var opt_preserve_newlines:Boolean;//保留空行
+		protected var opt_max_preserve_newlines:int;//最大空行数量
+		protected var opt_indent_level:int;//缩进等级(未知)
+		protected var opt_space_after_anon_function:Boolean;//空函数后方插入空格
+		protected var opt_keep_array_indentation:Boolean;//保留数组缩进
 		
 		public function JSFormatter() { }
 		
@@ -83,7 +83,7 @@ package com.coursevector.data {
 			opt_indent_size       = options.indent_size || 4;
 			opt_indent_char       = options.indent_char || ' ';
 			opt_preserve_newlines =	options.hasOwnProperty("preserve_newlines") ? options.preserve_newlines : true;
-			opt_max_preserve_newlines = options.hasOwnProperty("opt_max_preserve_newlines") ? options.max_preserve_newlines : false;
+			opt_max_preserve_newlines = options.hasOwnProperty("max_preserve_newlines") ? options.max_preserve_newlines : 999;
 			indent_level      	  = options.indent_level || 0; // starting indentation
 			opt_space_after_anon_function = options.hasOwnProperty("space_after_anon_function") ? options.space_after_anon_function : false;
 			opt_keep_array_indentation = options.hasOwnProperty("keep_array_indentation") ? options.keep_array_indentation : false;
@@ -101,7 +101,7 @@ package com.coursevector.data {
 				opt_indent_size -= 1;
 			}
 			
-			input = js_source_text;
+			input = js_source_text.replace(/\n\r/g,"\n");
 			
 			last_word = ''; // last 'TK_WORD' passed
 			last_type = 'TK_START_EXPR'; // last token type
@@ -636,7 +636,7 @@ package com.coursevector.data {
 		}
 		
 		private function print_newline(ignore_repeated:Boolean = true):void {
-			 flags.eat_next_space = false;
+			flags.eat_next_space = false;
 			if (opt_keep_array_indentation && is_array(flags.mode)) return;
 			
 			ignore_repeated = typeof ignore_repeated === 'undefined' ? true : ignore_repeated;
@@ -835,7 +835,8 @@ package com.coursevector.data {
 			} else {
 				
             	while (in_array(c, whitespace)) {	
-					if (c === "\n") n_newlines += ( (opt_max_preserve_newlines) ? (n_newlines <= opt_max_preserve_newlines) ? 1: 0: 1 );
+					//if (c === "\n" || c === "\r") n_newlines += ( (opt_max_preserve_newlines) ? ((n_newlines <= opt_max_preserve_newlines) ? 1: 0): 1 );
+					if (c === "\n") n_newlines += ( (opt_max_preserve_newlines) ? ((n_newlines <= opt_max_preserve_newlines) ? 1: 0): 1 );
 					
 					if (parser_pos >= input_length) return ['', 'TK_EOF'];
 					
