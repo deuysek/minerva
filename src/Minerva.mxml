@@ -68,6 +68,21 @@
             <fx:Object label="{LocaleManager.getIns().getLangString('CodeFormat.Indent8Space')}" value="8"/>
         </s:ArrayCollection>
 
+        <s:ArrayCollection id="sortType">
+            <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortNameAsc')}"
+                       data="name-asc"
+                       tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortNameAsc')}"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortNameDes')}"
+                       data="name-desc"
+                       tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortNameDes')}"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeAsc')}"
+                       data="type-asc"
+                       tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeAsc')}"/>
+            <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeDes')}"
+                       data="type-desc"
+                       tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeDes')}"/>
+        </s:ArrayCollection>
+
     </fx:Declarations>
 
     <s:Panel width="100%" height="100%" includeInLayout="true" title="Minerva">
@@ -117,23 +132,8 @@
                         <s:HGroup width="50%" horizontalAlign="right">
                             <s:Label height="100%" text="{LocaleManager.getIns().getLangString('EditorOperate.SortMethod')}"
                                      verticalAlign="middle"/>
-                            <mx:ComboBox id="cbSort" change="onChangeSort(event)" editable="false"
-                                         selectedIndex="0" height="100%">
-                                <mx:dataProvider>
-                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortNameAsc')}"
-                                               data="name-asc"
-                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortNameAsc')}"/>
-                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortNameDes')}"
-                                               data="name-desc"
-                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortNameDes')}"/>
-                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeAsc')}"
-                                               data="type-asc"
-                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeAsc')}"/>
-                                    <fx:Object label="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeDes')}"
-                                               data="type-desc"
-                                               tooltip="{LocaleManager.getIns().getLangString('EditorOperate.SortTypeDes')}"/>
-                                </mx:dataProvider>
-                            </mx:ComboBox>
+                            <s:DropDownList id="cbSort" change="onChangeSort(event)" dataProvider="{sortType}"
+                                         selectedIndex="0" height="100%"/>
                             <mx:Button id="btnRefresh" label="{LocaleManager.getIns().getLangString('EditorOperate.Refresh')}"
                                        click="onClickRefresh()" enabled="{hasFile}"
                                        icon="@Embed(source='assets/icons/refresh.png')"
@@ -405,10 +405,10 @@
                                 label="{LocaleManager.getIns().getLangString('PageTab.CodeBeautifier')}" hideEffect="{EffOut}" showEffect="{EffIn}">
                 <s:VGroup width="100%" height="100%" gap="10">
                     <s:HGroup width="100%" horizontalAlign="center" gap="10" verticalAlign="middle">
-                        <mx:ComboBox id="ddSize" change="updateConfig()" selectedIndex="0" dataProvider="{indentType}"/>
-                        <mx:CheckBox id="cbBraces" label="{LocaleManager.getIns().getLangString('CodeFormat.BraceInNewLine')}"
+                        <s:DropDownList id="ddSize" change="updateConfig()" selectedIndex="0" dataProvider="{indentType}" />
+                        <s:CheckBox id="cbBraces" label="{LocaleManager.getIns().getLangString('CodeFormat.BraceInNewLine')}"
                                      change="updateConfig()"/>
-                        <mx:CheckBox id="cbPreserve" label="{LocaleManager.getIns().getLangString('CodeFormat.PreserverBlankLine')}"
+                        <s:CheckBox id="cbPreserve" label="{LocaleManager.getIns().getLangString('CodeFormat.PreserverBlankLine')}"
                                      change="updateConfig()" selected="true"/>
                         <!--<mx:CheckBox id="cbKeepIndentation" label="" change="updateConfig()"/>-->
                     </s:HGroup>

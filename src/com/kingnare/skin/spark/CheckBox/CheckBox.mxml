@@ -2,13 +2,12 @@
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
         xmlns:s="library://ns.adobe.com/flex/spark"
         xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
-        xmlns:d="http://ns.adobe.com/fxg/2008/dt"
-        width="73" height="13">
-    
+        xmlns:d="http://ns.adobe.com/fxg/2008/dt">
+
     <fx:Metadata>
         [HostComponent("spark.components.CheckBox")]
-    </fx:Metadata> 
-    
+    </fx:Metadata>
+
     <s:states>
         <s:State name="up" />
         <s:State name="over"  />
@@ -19,10 +18,11 @@
         <s:State name="downAndSelected"  />
         <s:State name="disabledAndSelected"  />
     </s:states>
-    
+
+    <s:HGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
     <s:Group x="0" verticalCenter="0">
         <!-- background -->
-        <s:Rect d:userLabel="Rectangle" x="0.5" y="0.5" width="12" height="12"
+        <s:Rect d:userLabel="Rectangle" x="0.5" y="0.5" width="15" height="15"
                 alpha.down="0.3"
                 alpha.downAndSelected="0.3"
                 alpha.over="0.3"
@@ -51,21 +51,21 @@
                 <s:SolidColor color="#FFFFFF" alpha="0"/>
             </s:fill>
         </s:Rect>
-        
+
         <!-- shadow (down states only) -->
-        
+
         <!-- checkmark -->
-        <s:Rect x="1.5" y="1.5" width="10" height="10">
+        <s:Rect x="1.5" y="1.5" width="13" height="13">
             <s:stroke>
                 <s:SolidColorStroke caps="none" color="#1B1B1B" joints="miter" miterLimit="4" weight="1"/>
             </s:stroke>
         </s:Rect>
-        <s:Rect x="2.5" y="2.5" width="8" height="8">
+        <s:Rect x="2.5" y="2.5" width="11" height="11">
             <s:stroke>
                 <s:SolidColorStroke caps="none" color="#212121" joints="miter" miterLimit="4" weight="1"/>
             </s:stroke>
         </s:Rect>
-        <s:Rect x="3.5" y="3.5" width="6" height="6">
+        <s:Rect x="3.5" y="3.5" width="9" height="9">
             <s:stroke>
                 <s:SolidColorStroke caps="none" color="#2B2B2B" joints="miter" miterLimit="4" weight="1"/>
             </s:stroke>
@@ -80,7 +80,7 @@
             </s:fill>
         </s:Path>
     </s:Group>
-    
+
     <!-- Label -->
     <s:RichText id="labelDisplay" x="18" textAlign="start" verticalAlign="middle"
                 alpha.disabled="0.5" verticalCenter.disabled="0.5"
@@ -91,6 +91,7 @@
                 verticalCenter.over="0.5"
                 verticalCenter.overAndSelected="0.5"
                 verticalCenter.up="0.5"
-                verticalCenter.upAndSelected="0.5" fontFamily="Arial"/>
-    
+                verticalCenter.upAndSelected="0.5"/>
+    </s:HGroup>
+
 </s:Skin>
