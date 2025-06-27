@@ -13,6 +13,7 @@ import flash.desktop.ClipboardTransferMode;
 import flash.desktop.NativeApplication;
 import flash.desktop.NativeDragActions;
 import flash.desktop.NativeDragManager;
+import flash.display.StageScaleMode;
 import flash.events.ErrorEvent;
 import flash.events.Event;
 import flash.events.InvokeEvent;
@@ -185,10 +186,12 @@ private function init():void {
 	amfReader.addEventListener(Event.COMPLETE, openCompleteHandler, false, 0, true);
 }
 
-private function initTracker():void {
+private function onAdded():void {
 	// Analytics
 	// var tracker:AnalyticsTracker = new GATracker(this.stage, "UA-349755-1", "AS3", false);
 	// tracker.trackPageview("/tracking/projects/minerva");
+	stage.scaleMode = StageScaleMode.SHOW_ALL;
+	stage.align = "";
 }
 
 private function invokeHandler(e:InvokeEvent):void {
